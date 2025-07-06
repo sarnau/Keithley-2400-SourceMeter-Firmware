@@ -1,0 +1,11 @@
+
+     ON-BOARD                   PART#        CHECKSUM
+
+ U15 (  ODD / MSB ) = position-1  =  2400-803C33  = 8-bit checksum 05AFDD12
+
+ U16 ( EVEN / LSB ) = position-0  =  2400-804C33  = 8-bit checksum 029E75A2
+
+
+Full-Image for Flash Wizard = 8-bit checksum 030318E2
+
+
