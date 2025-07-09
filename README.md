@@ -13,7 +13,11 @@ I am looking into the firmware. It is based around a Motorola 680000 variant (MC
 
 ## Memory Map
 
-- 0x000000-0x07ffff - 512KB FLASH memory. The first 16KB is the boot ROM, the main firmware exception table starts at 0x00040000, the code initialization starts at 0x0004400.
+- 0x000000-0x07ffff - 512KB FLASH memory.
+	0x000000-0x000FFF - Booter Code, HW initialization, ROM checksum
+	0x001000-0x003FFF - Firmware FLASH code, needs to be copied to RAM.
+	0x004000-0x07FFFF - Vector table for the main firmware
+	0x004400-0x07FFFF - main Firmware
 - 0x080000-0x083fff - 256KB RAM
 - 0x090000-0x090007 - TMS9914A
 - 0x0a0000-0x0a0001 - one word of unknown data
