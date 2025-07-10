@@ -62,7 +62,7 @@ class Command():
 		elif self.cmdType == 2:
 			return "0x%04x:%s %s" % (self.cmdId,self.name,' | '.join(paramFlags))
 		else:
-			return "0x%04x:*%s %s" % (self.cmdId,self.name,' | '.join(paramFlags))
+			return "0x%04x:[%s] %s" % (self.cmdId,self.name,' | '.join(paramFlags))
 
 def run():
 	def getCommand(cmdAdr):
@@ -145,9 +145,9 @@ def run():
 				indent -= 2
 
 	commands = getTable(start.add(0x000635da))
-	printCommands(commands)
-	commands = getTable(start.add(0x00063714))
 	#printCommands(commands)
+	commands = getTable(start.add(0x00063714))
+	printCommands(commands)
 
 def setPrimaryLabelOnAddr(addr, label, doReplace = False):
 	if label.strip() == "":
