@@ -34,24 +34,27 @@ def parse_srec_line(line):
 
 def readSrecord(filename):
 	with open(filename) as f:
-		d = bytearray()
+		d = bytearray([0xff] * 0x80000)
 		for line in f:
 			line = line.strip()
-			if line:
+			if line and not line.startswith('S0'):
 				rec_type, addr, data = parse_srec_line(line)
 				#print(f"S{rec_type} Addr: {hex(addr)} Data: {data.hex()}")
-				d += data
+				d = d[:addr] + data + d[addr+len(data):]
 		return d
 
-#dd = readSrecord("./2400-FRP-C34/2400c34.x")
-msb = readSrecord("./2400-FRP-C34/2400-803C34.x")
-lsb = readSrecord("./2400-FRP-C34/2400-804C34.x")
-data = bytearray()
-for l, h in zip(msb, lsb):
-    data.append(h)
-    data.append(l)
+if True:
+	result = readSrecord("./2400-FRP-C34/2400c34.x")
+else:
+	msb = readSrecord("./2400-FRP-C34/2400-803C34.x")
+	lsb = readSrecord("./2400-FRP-C34/2400-804C34.x")
+	data = bytearray()
+	for l, h in zip(msb, lsb):
+		data.append(h)
+		data.append(l)
 
-result = bytearray()
-for i in range(0, len(data), 4):
-    result.extend(data[i:i+2])
+	result = bytearray()
+	for i in range(0, len(data), 4):
+		result.extend(data[i:i+2])
+
 open('2400-FIRMWARE.bin','wb').write(result)

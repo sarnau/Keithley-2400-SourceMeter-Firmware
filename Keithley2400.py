@@ -137,7 +137,7 @@ def run():
 					else:
 						pl[param.cmdId] = param.name
 				for pp in pl:
-					p.append(pl[pp])#('%d:%s' % (pp,pl[pp]))
+					p.append('%d:%s' % (pp,pl[pp]))
 			print(' ' * indent + '%s' % cmd + ' %s' % ','.join(p))
 			if cmd.subCommands:
 				indent += 2
@@ -145,7 +145,7 @@ def run():
 				indent -= 2
 
 	commands = getTable(start.add(0x000635da))
-	#printCommands(commands)
+	printCommands(commands)
 	commands = getTable(start.add(0x00063714))
 	printCommands(commands)
 
