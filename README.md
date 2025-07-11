@@ -1,15 +1,17 @@
 # Keithley 2400 SourceMeter Firmware
 
-I am looking into the firmware. It is based around a Motorola 680000 variant (MC68332ACFC16) with some memory and EPROM for the firmware. The configuration is stored in a 2kb I2C flash. For the GPIB interface it uses the commonly used TMS9914A.
+I am looking into the firmware. It is based around a Motorola 680000 variant with some memory and EPROM for the firmware. The configuration is stored in a 2kb I2C flash. For the GPIB interface it uses the commonly used TMS9914A.
 
 ## Digital board chips
 
 - Motorola MC68332ACFC16, a modular microcontroller based around the CPU32, which is a later model of the famous 68k CPU. It is clocked internally to 16588800 MHz and has an additional external 32768 Hz clock as well.
-- Two 256kb FLASH memory chips for the firmware
+- Two 256kb FLASH memory chips for the firmware (AT49F002T-12JI)
 - Two Toshiba TC551001 128kb RAM chips
 - Texas Instruments TMS9914A for the GPIB communication
 - Microchip 24LC16B (2kb I2C EEPROM for configuration data)
 - Dallas DS1236 Micro Manager as a CPU/memory watchdog
+
+A Panasonic BR2330 3V Lithium Cell battery is used to maintain RAM content, but all configuration data is thankfully stored in the I2C EEPROM.
 
 ## Memory Map
 
