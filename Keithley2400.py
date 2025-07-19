@@ -1,4 +1,4 @@
-#@author Marus Frite
+#@author Markus Fritze
 #@category Analysis
 #@keybinding
 #@menupath
