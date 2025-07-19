@@ -45,7 +45,24 @@ assert verifyChecksum(data, 0x3D0, 0x024)
 assert verifyChecksum(data, 0x3F4, 0x00c)
 
 print('Calibration data:')
-print(struct.unpack('>44d', data[0x000:0x160]))
+floats = struct.unpack('>88f', data[0x000:0x160])
+calDD = {
+	0: '0.2 DCV Range - Sense ',
+	1: '2 DCV Range - Sense   ',
+	2: '20 DCV Range - Sense  ',
+    3: '200 DCV Range - Sense ',
+
+   11: '0.2 DCV Range - Source',
+   12: '2 DCV Range - Source  ',
+   13: '20 DCV Range - Source ',
+   14: '200 DCV Range - Source',
+}
+for y in range(22):
+	fa = floats[y*4:(y+1)*4]
+	tt = '#%03x                  ' % (y * 0x10)
+	if y in calDD:
+		tt = calDD[y]
+	print('{:s} : {:e}, {:e}, {:e}, {:e}'.format(tt,fa[0],fa[1],fa[2],fa[3]))
 
 print()
 print('Calibration info:')
