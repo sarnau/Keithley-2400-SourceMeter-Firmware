@@ -26,7 +26,7 @@ data = open('24LC16B.bin','rb').read()
 
 # 0x000-0x161 : Calibration Data
 # 0x162-0x17F : Calibration Info
-# 0x180-0x190 : Serial number
+# 0x180-0x190 : Serial number (no checksum)
 # 0x190-0x199 : Communication Config
 # 0x19A-0x1A5 : Hardware Config
 # 0x1A6-0x231 : Current Config
