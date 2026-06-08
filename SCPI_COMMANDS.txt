@@ -1,0 +1,631 @@
+===== root table @ 0x0635da =====
+:ARM 
+  :ASYNchronous 
+    0x00cb:ILINe <intvalue> 
+    0x00cc:OLINe <intvalue> 
+    0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+  :LAYer1 
+    :ASYNchronous 
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    :TCONfigure 
+      :ASYNchronous 
+        0x00cb:ILINe <intvalue> 
+        0x00cc:OLINe <intvalue> 
+        0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+      0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    0x00c7:SOURce <intvalue> | <str> 512:BSTest,256:NSTest,128:PSTest,64:TLINk,32:BUS,16:TIMer,8:IMMediate,4:MANual,2:STESt
+    0x00c8:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00c9:TIMer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+    0x00cb:ILINe <intvalue> 
+    0x00cc:OLINe <intvalue> 
+    0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+  :SEQuence1 
+    :ASYNchronous 
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    :LAYer1 
+      :ASYNchronous 
+        0x00cb:ILINe <intvalue> 
+        0x00cc:OLINe <intvalue> 
+        0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+      :TCONfigure 
+        :ASYNchronous 
+          0x00cb:ILINe <intvalue> 
+          0x00cc:OLINe <intvalue> 
+          0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+        0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+        0x00cb:ILINe <intvalue> 
+        0x00cc:OLINe <intvalue> 
+        0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+      0x00c7:SOURce <intvalue> | <str> 512:BSTest,256:NSTest,128:PSTest,64:TLINk,32:BUS,16:TIMer,8:IMMediate,4:MANual,2:STESt
+      0x00c8:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x00c9:TIMer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    :TCONfigure 
+      :ASYNchronous 
+        0x00cb:ILINe <intvalue> 
+        0x00cc:OLINe <intvalue> 
+        0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+      0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    0x00c7:SOURce <intvalue> | <str> 512:BSTest,256:NSTest,128:PSTest,64:TLINk,32:BUS,16:TIMer,8:IMMediate,4:MANual,2:STESt
+    0x00c8:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00c9:TIMer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+    0x00cb:ILINe <intvalue> 
+    0x00cc:OLINe <intvalue> 
+    0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+  :TCONfigure 
+    :ASYNchronous 
+      0x00cb:ILINe <intvalue> 
+      0x00cc:OLINe <intvalue> 
+      0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+    0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+    0x00cb:ILINe <intvalue> 
+    0x00cc:OLINe <intvalue> 
+    0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+  0x00c7:SOURce <intvalue> | <str> 512:BSTest,256:NSTest,128:PSTest,64:TLINk,32:BUS,16:TIMer,8:IMMediate,4:MANual,2:STESt
+  0x00c8:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00c9:TIMer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00ca:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+  0x00cb:ILINe <intvalue> 
+  0x00cc:OLINe <intvalue> 
+  0x00cd:OUTPut <intvalue> | <str> | <strlist> 4:TENTer,2:TEXit,1:TRIGger,0:NONE
+:CALCULATE2 
+  :CLIMits 
+    0x0138:[CLEar]  
+      0x0138:IMMediate  
+      0x0139:AUTO <b> 1:ON,0:OFF
+    0x013a:[PASS]  
+      0x013b:SOURCE2 <intvalue> | <str> | <b> | <numlist> 
+      0x013c:SMLocation <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x013e:BCONtrol <intvalue> | <str> 1:END,0:IMMediate
+    0x013f:MODE <intvalue> | <str> 1:SORTing,0:GRADing
+  :LIMIT4 
+    0x00f7:SOURCE2 <intvalue> | <str> | <b> | <numlist> 
+    0x00f9:FAIL  
+    0x0105:STATe <b> 1:ON,0:OFF
+  :LIMIT9 
+    :PASS 
+      0x0134:SOURCE2 <intvalue> | <str> | <b> | <numlist> 
+    0x0100:FAIL  
+    0x010c:STATe <b> 1:ON,0:OFF
+    0x0116:[UPPer] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0116:DATA <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0120:SOURCE2 <intvalue> | <str> | <b> | <numlist> 
+  :LIMit1 
+    :COMPliance 
+      0x00f5:FAIL <intvalue> | <str> 1:IN,0:OUT
+      0x00f6:SOURCE2 <intvalue> | <str> | <b> | <numlist> 
+    0x00f8:FAIL  
+    0x0104:STATe <b> 1:ON,0:OFF
+  :NULL 
+    0x0140:OFFSet <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0141:STATe <b> 1:ON,0:OFF
+    0x0142:ACQuire  
+  0x00f2:[DATA]  
+    0x00f3:LATest  
+  0x00f4:FEED <intvalue> | <str> 6:RESistance,5:CURRent,4:VOLTage,2:CALC1late1
+:CALCULATE3 
+  0x0143:FORMat <b> 5:SDEViation,4:MEAN,3:PKPK,2:MAXimum,1:MINimum
+  0x0144:DATA  
+:CALCulate1 
+  0x00e8:[DATA]  
+    0x00e9:LATest  
+  0x00ea:STATe <b> 1:ON,0:OFF
+  0x00eb:[MATH] <intvalue> | <b> | <numlist> 
+    0x00eb:[EXPRession] <intvalue> | <b> | <numlist> 
+      0x00eb:DEFine <intvalue> | <b> | <numlist> 
+      0x00ec:CATalog  
+      0x00ed:[DELete] <intvalue> | <strlist> 
+        0x00ed:SELected <intvalue> | <strlist> 
+        0x00ee:ALL  
+      0x00ef:NAME <intvalue> | <strlist> 
+      0x00f0:BINDex <intvalue> | <str> 1:TCOunt,0:AUTO
+    0x00ec:CATalog  
+    0x00ed:[DELete] <intvalue> | <strlist> 
+      0x00ed:SELected <intvalue> | <strlist> 
+      0x00ee:ALL  
+    0x00ef:NAME <intvalue> | <strlist> 
+    0x00f1:UNITs <intvalue> | <strlist> 
+:CALibration 
+  :PROTected 
+    0x0145:LOCK  
+    0x0147:CODE <intvalue> | <strlist> 
+    0x0148:SAVE  
+    0x0149:DATE <str> | <numlist> 
+    0x014a:NDUE <str> | <numlist> 
+    0x014d:[SOURce] <intvalue> 
+      0x014e:DATA <str> | <b> | <numlist> 
+    0x014f:COUNt  
+:CURRent 
+  :DC 
+    0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x002c:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x002c:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x002d:[AUTO] <b> 1:ON,0:OFF
+        0x002e:ULIMit  
+        0x002f:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0030:[HOLDoff] <b> 1:ON,0:OFF
+        0x0031:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0032:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x001f:RSYNchronize <b> 1:ON,0:OFF
+      0x0032:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0033:TRIPped  
+  0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x002c:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x002c:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x002d:[AUTO] <b> 1:ON,0:OFF
+      0x002e:ULIMit  
+      0x002f:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0030:[HOLDoff] <b> 1:ON,0:OFF
+      0x0031:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0032:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x001f:RSYNchronize <b> 1:ON,0:OFF
+    0x0032:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0033:TRIPped  
+:DIAGnostic 
+  :KEIThley 
+    :BITS 
+      0x0158:AFB <intvalue> | <str> | <b> | <numlist> 
+      0x0159:RNG <intvalue> | <str> | <b> | <numlist> 
+      0x015a:VDAC <intvalue> | <str> | <b> | <numlist> 
+      0x015b:IDAC <intvalue> | <str> | <b> | <numlist> 
+      0x015c:SYS <intvalue> | <str> | <b> | <numlist> 
+      0x015d:MUX <intvalue> | <str> | <b> | <numlist> 
+      0x015e:INT <intvalue> | <str> | <b> | <numlist> 
+      0x015f:DATA <b> 
+      0x0160:SIG1 <intvalue> | <str> | <b> | <numlist> 
+      0x0161:SIG2 <intvalue> | <str> | <b> | <numlist> 
+      0x0162:REF <intvalue> | <str> | <b> | <numlist> 
+      0x0163:ZERO <intvalue> | <str> | <b> | <numlist> 
+    :SET 
+      0x0164:SIG1 <intvalue> | <str> | <b> | <numlist> 
+      0x0165:SIG2 <intvalue> | <str> | <b> | <numlist> 
+      0x0166:REF <intvalue> | <str> | <b> | <numlist> 
+      0x0167:ZERO <intvalue> | <str> | <b> | <numlist> 
+    0x0084:GPIB <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0146:UNLOCK  
+    0x0150:ISN <intvalue> | <strlist> 
+    0x0151:IBBR <intvalue> | <str> 7:KI2425,6:KI2440,5:KI2426,4:KI2430,2:KI2420,1:KI2410,0:KI2400
+    0x0153:BOOT  
+    0x0154:DBUR <b> 1:ON,0:OFF
+    0x0155:FAN <intvalue> 
+    0x0156:PROG  
+    0x0157:CCHK <b> 1:ON,0:OFF
+    0x016c:ENAB <b> 1:ON,0:OFF
+    0x016d:SPHAS <intvalue> 
+    0x016e:DISP <intvalue> | <strlist> 
+    0x016f:DCMD <intvalue> | <str> | <b> | <numlist> 
+    0x0170:KEY  
+    0x0171:CCR  
+    0x0172:STES  
+    0x0173:INT  
+    0x0174:ILIN1  
+    0x0175:ILIN2  
+    0x0176:ILIN3  
+    0x0177:ILIN4  
+    0x0178:OLIN1 <b> 1:ON,0:OFF
+    0x0179:OLIN2 <b> 1:ON,0:OFF
+    0x017a:OLIN3 <b> 1:ON,0:OFF
+    0x017b:OLIN4 <b> 1:ON,0:OFF
+    0x017c:AHWREV <intvalue> | <strlist> 
+    0x017d:DHWREV <intvalue> | <strlist> 
+    0x017e:CCREV <intvalue> | <strlist> 
+    0x017f:SECRET <b> 1:ON,0:OFF
+    0x0180:LVOL <b> 1:ON,0:OFF
+    0x0181:FTYP  
+    0x0182:EES  
+    0x0183:OTDIS  
+    0x0184:MELTDOWN  
+    0x0185:NOPULSE <b> 1:ON,0:OFF
+    0x0186:KEYLOCK <intvalue> | <str> 3:JUAREZ,2:FEDERAL,0:NONE
+    0x0187:SETUP1 <intvalue> | <strlist> 
+    0x0188:SETUP2 <intvalue> | <strlist> 
+    0x0189:SETUP3 <intvalue> | <strlist> 
+    0x018a:SETUP4 <intvalue> | <strlist> 
+    0x018b:SETUP5 <intvalue> | <strlist> 
+    0x018c:VREF <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x018d:INITCAL  
+:DISPlay 
+  :WINDow2 
+    0x00be:[TEXT] <intvalue> | <strlist> 
+      0x00bd:STATe <b> 1:ON,0:OFF
+      0x00be:DATA <intvalue> | <strlist> 
+    0x00bf:DATA  
+    0x00c0:ATTRibutes  
+  0x00b8:CNDisplay  
+  0x00ba:[TEXT] <intvalue> | <strlist> 
+    0x00b9:STATe <b> 1:ON,0:OFF
+    0x00ba:DATA <intvalue> | <strlist> 
+  0x00bb:DATA  
+  0x00bc:ATTRibutes  
+  0x00c1:ENABle <b> 1:ON,0:OFF
+  0x00c2:DIGits <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+:RESistance 
+  0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0026:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0026:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0027:[AUTO] <b> 1:ON,0:OFF
+      0x0028:ULIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0029:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x002a:MODE <intvalue> | <str> 1:AUTO,0:MANual
+  0x002b:OCOMpensated <b> 1:ON,0:OFF
+:ROUTe 
+  0x0091:TERMinals <intvalue> | <str> 1:FRONt,0:REAR
+:SENSe1 
+  :CURRent 
+    :DC 
+      0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x002c:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x002c:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x002d:[AUTO] <b> 1:ON,0:OFF
+          0x002e:ULIMit  
+          0x002f:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0030:[HOLDoff] <b> 1:ON,0:OFF
+          0x0031:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0032:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x001f:RSYNchronize <b> 1:ON,0:OFF
+        0x0032:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0033:TRIPped  
+    0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x002c:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x002c:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x002d:[AUTO] <b> 1:ON,0:OFF
+        0x002e:ULIMit  
+        0x002f:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0030:[HOLDoff] <b> 1:ON,0:OFF
+        0x0031:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0032:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x001f:RSYNchronize <b> 1:ON,0:OFF
+      0x0032:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0033:TRIPped  
+  :RESistance 
+    0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0026:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0026:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0027:[AUTO] <b> 1:ON,0:OFF
+        0x0028:ULIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0029:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x002a:MODE <intvalue> | <str> 1:AUTO,0:MANual
+    0x002b:OCOMpensated <b> 1:ON,0:OFF
+  :VOLTage 
+    :DC 
+      0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0020:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0020:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0021:[AUTO] <b> 1:ON,0:OFF
+          0x0022:ULIMit  
+          0x0023:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0024:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x001f:RSYNchronize <b> 1:ON,0:OFF
+        0x0024:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0025:TRIPped  
+    0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0020:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0020:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0021:[AUTO] <b> 1:ON,0:OFF
+        0x0022:ULIMit  
+        0x0023:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0024:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x001f:RSYNchronize <b> 1:ON,0:OFF
+      0x0024:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0025:TRIPped  
+  0x0012:[DATA]  
+    0x0012:LATest  
+  0x0017:[FUNCtion] <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+    0x0013:CONCurrent <b> 1:ON,0:OFF
+    0x0017:[ON] <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+      0x0018:ALL  
+      0x0019:COUNt  
+    0x0018:ALL  
+    0x0019:COUNt  
+    0x001a:STATe <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+  0x001d:[AVERage] <b> 1:ON,0:OFF
+    0x001b:TCONtrol <intvalue> | <str> 1:REPeat,0:MOVing
+    0x001c:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x001d:STATe <b> 1:ON,0:OFF
+  0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+:SOURCE2 
+  :TTL4 
+    0x0043:MODE <intvalue> | <str> 1:BUSY,0:EOTest
+    0x0044:BSTate <b> 1:HIGH,0:LOW
+  0x003e:[TTL] <intvalue> | <str> | <b> | <numlist> 
+    0x003e:LEVel <intvalue> | <str> | <b> | <numlist> 
+      0x003e:DEFault <intvalue> | <str> | <b> | <numlist> 
+      0x003f:ACTual  
+    0x003f:ACTual  
+  0x0042:[CLEar]  
+    0x0040:[AUTO] <b> 1:ON,0:OFF
+      0x0041:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0042:IMMediate  
+  0x0045:BSIZe <intvalue> 
+:SOURce1 
+  :LIST 
+    0x0064:DIRection <intvalue> | <str> 6:DOWN,5:UP
+    0x0065:[VOLTage] <str> | <b> | <numlist> 
+      0x0066:APPend <str> | <b> | <numlist> 
+      0x0067:POINts  
+      0x0068:STARt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  :MEMory 
+    0x0070:SAVE <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0071:RECall <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0072:POINts <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0073:STARt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  :PULSe 
+    0x006e:WIDTh <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x006f:DELay <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  :SWEep 
+    0x0069:DIRection <intvalue> | <str> 6:DOWN,5:UP
+    0x006a:SPACing <intvalue> | <str> 1:LOGarithmic,0:LINear
+    0x006b:POINts <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x006c:RANGing <intvalue> | <str> 2:FIXed,1:BEST,0:AUTO
+    0x006d:CABort <intvalue> | <str> 2:LATE,1:EARLy,0:NEVer
+  0x0046:[CURRent] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0046:[LEVel] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0046:[IMMediate] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0046:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0047:[TRIGgered] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0047:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0048:[SFACtor] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+          0x0049:STATe <b> 1:ON,0:OFF
+    0x0047:[TRIGgered] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0047:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0048:[SFACtor] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0049:STATe <b> 1:ON,0:OFF
+    0x004a:MODE <intvalue> | <str> 2:LIST,1:SWEep,0:FIXed
+    0x004b:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x004c:AUTO <b> 1:ON,0:OFF
+    0x004d:STARt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x004e:STOP <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x004f:STEP <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0050:SPAN <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0051:CENTer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0052:[VOLTage] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0052:[LEVel] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0052:[IMMediate] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0052:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0053:[TRIGgered] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0053:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0054:[SFACtor] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+          0x0055:STATe <b> 1:ON,0:OFF
+    0x0053:[TRIGgered] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0053:AMPLitude <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0054:[SFACtor] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+        0x0055:STATe <b> 1:ON,0:OFF
+    0x0056:MODE <intvalue> | <str> 2:LIST,1:SWEep,0:FIXed
+    0x0057:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0057:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0058:TRIPped  
+    0x0059:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x005a:AUTO <b> 1:ON,0:OFF
+    0x005b:STARt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x005c:STOP <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x005d:STEP <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x005e:SPAN <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x005f:CENTer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0074:[DELay] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0075:AUTO <b> 1:ON,0:OFF
+  0x0076:SOAK <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0077:[FUNCtion] <intvalue> | <str> 4:MEMory,1:CURRent,0:VOLTage
+    0x0077:MODE <intvalue> | <str> 4:MEMory,1:CURRent,0:VOLTage
+    0x0078:SHAPe <intvalue> | <str> 1:PULSe,0:DC
+  0x007b:[CLEar]  
+    0x0079:[AUTO] <b> 1:ON,0:OFF
+      0x007a:MODE <intvalue> | <str> 1:TCOunt,0:ALWays
+    0x007b:IMMediate  
+:STATus 
+  0x00a9:PRESet  
+  0x00aa:[QUEue]  
+    0x00aa:NEXT  
+    0x00ab:ENABle <str> | <strlist> 
+    0x00ac:DISable <str> | <strlist> 
+    0x00ae:CLEar  
+  0x00b3:[QUEStionable]  
+    0x00b2:CONDition  
+    0x00b3:EVENt  
+    0x00b4:ENABle <intvalue> | <str> | <b> | <numlist> 
+:SYSTem 
+  0x000a:PRESet  
+  0x0080:[TIME]  
+    0x0081:[RESet]  
+      0x0082:AUTO <b> 1:ON,0:OFF
+  0x008a:VERSion  
+  0x008b:[ERRor]  
+    0x008b:NEXT  
+    0x008c:ALL  
+    0x008d:COUNt  
+    0x008e:[CODE]  
+      0x008e:NEXT  
+      0x008f:ALL  
+  0x0090:KEY <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0091:FRSWitch <intvalue> | <str> 1:FRONt,0:REAR
+  0x0092:[AZERo] <b> 2:ONCE,1:ON,0:OFF
+    0x0092:STATe <b> 2:ONCE,1:ON,0:OFF
+    0x0093:[CACHing] <b> 1:ON,0:OFF
+      0x0093:STATe <b> 1:ON,0:OFF
+      0x0094:RESet  
+      0x0095:REFResh  
+      0x0096:NPLCycles  
+  0x0097:POSetup <intvalue> | <str> 11:RST,10:PRESet,4:SAV4,3:SAV3,2:SAV2,1:SAV1,0:SAV0
+  0x0098:[LFRequency] <intvalue> 
+    0x0099:AUTO <b> 1:ON,0:OFF
+  0x009a:REMote  
+  0x009b:LOCal  
+  0x009c:RWLock  
+  0x009d:RSENse <b> 1:ON,0:OFF
+  0x009e:GUARd <intvalue> | <str> 1:OHMS,0:CABLe
+  0x00a1:[MEMory]  
+    0x00a1:INITialize  
+  0x00a2:RCType <intvalue> | <str> 1:FAST,0:SMOoth
+  0x00a3:RCMode <intvalue> | <str> 1:MULTiple,0:SINGle
+  0x00a4:FCONtrol <intvalue> | <str> 1:OUTPut,0:ALWays
+  0x00a5:[CCHeck] <b> 1:ON,0:OFF
+    0x00a5:STATe <b> 1:ON,0:OFF
+    0x00a6:RESistance <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00a7:[MEP] <b> 1:ON,0:OFF
+    0x00a7:STATe <b> 1:ON,0:OFF
+    0x00a8:HOLDoff <b> 1:ON,0:OFF
+  0x00ad:CLEar  
+:TRACe 
+  0x00da:DATA <str> | <b> | <strlist> 
+  0x00db:[FEED] <intvalue> | <numlist> 3:CALC2late2,2:CALC1late1,1:SENS11,0:NONE
+    0x00dc:CONTrol <intvalue> | <numlist> 1:NEXT,0:NEVer
+  0x00dd:FREE <str> | <b> | <strlist> 
+  0x00de:[POINts] <numlist> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00df:ACTual <numlist> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00e0:CLEar <str> | <b> | <strlist> 
+  0x00e1:[TSTamp] <intvalue> | <numlist> 1:DELTa,0:ABSolute
+    0x00e1:FORMat <intvalue> | <numlist> 1:DELTa,0:ABSolute
+:TRIGger 
+  :ASYNchronous 
+    0x00d4:ILINe <intvalue> 
+    0x00d5:OLINe <intvalue> 
+    0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+  :SEQUENCE2 
+    0x00d8:SOURce <intvalue> | <str> 1024:CCHeck,8:IMMediate
+    0x00d9:TOUT <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  :SEQuence1 
+    :ASYNchronous 
+      0x00d4:ILINe <intvalue> 
+      0x00d5:OLINe <intvalue> 
+      0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+      0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    :TCONfigure 
+      :ASYNchronous 
+        0x00d4:ILINe <intvalue> 
+        0x00d5:OLINe <intvalue> 
+        0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+        0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+      0x00d3:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+      0x00d4:ILINe <intvalue> 
+      0x00d5:OLINe <intvalue> 
+      0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+      0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    0x00cf:SOURce <intvalue> | <str> 64:TLINk,8:IMMediate
+    0x00d0:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00d1:[DELay] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x00d2:AUTO <b> 1:ON,0:OFF
+    0x00d3:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+    0x00d4:ILINe <intvalue> 
+    0x00d5:OLINe <intvalue> 
+    0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+  :TCONfigure 
+    :ASYNchronous 
+      0x00d4:ILINe <intvalue> 
+      0x00d5:OLINe <intvalue> 
+      0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+      0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    0x00d3:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+    0x00d4:ILINe <intvalue> 
+    0x00d5:OLINe <intvalue> 
+    0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+    0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+  0x00ce:CLEar  
+  0x00cf:SOURce <intvalue> | <str> 64:TLINk,8:IMMediate
+  0x00d0:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00d1:[DELay] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00d2:AUTO <b> 1:ON,0:OFF
+  0x00d3:DIRection <intvalue> | <str> 1:SOURce,0:ACCeptor
+  0x00d4:ILINe <intvalue> 
+  0x00d5:OLINe <intvalue> 
+  0x00d6:OUTPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+  0x00d7:INPut <intvalue> | <str> | <strlist> 4:SENS11,2:DELay,1:SOURce1,0:NONE
+:VOLTage 
+  :DC 
+    0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0020:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0020:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0021:[AUTO] <b> 1:ON,0:OFF
+        0x0022:ULIMit  
+        0x0023:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0024:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x001f:RSYNchronize <b> 1:ON,0:OFF
+      0x0024:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+      0x0025:TRIPped  
+  0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0020:[RANGe] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0020:UPPer <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0021:[AUTO] <b> 1:ON,0:OFF
+      0x0022:ULIMit  
+      0x0023:LLIMit <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x0024:[PROTection] <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x001f:RSYNchronize <b> 1:ON,0:OFF
+    0x0024:LEVel <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x0025:TRIPped  
+0x0012:[DATA]  
+  0x0012:LATest  
+  0x00da:DATA <str> | <b> | <strlist> 
+  0x00db:[FEED] <intvalue> | <numlist> 3:CALC2late2,2:CALC1late1,1:SENS11,0:NONE
+    0x00dc:CONTrol <intvalue> | <numlist> 1:NEXT,0:NEVer
+  0x00dd:FREE <str> | <b> | <strlist> 
+  0x00de:[POINts] <numlist> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+    0x00df:ACTual <numlist> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x00e0:CLEar <str> | <b> | <strlist> 
+  0x00e1:[TSTamp] <intvalue> | <numlist> 1:DELTa,0:ABSolute
+    0x00e1:FORMat <intvalue> | <numlist> 1:DELTa,0:ABSolute
+0x0017:[FUNCtion] <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+  0x0013:CONCurrent <b> 1:ON,0:OFF
+  0x0017:[ON] <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+    0x0018:ALL  
+    0x0019:COUNt  
+  0x0018:ALL  
+  0x0019:COUNt  
+  0x001a:STATe <str> 2:RESistance,1:CURR:DC:dc,0:VOLT:DC:dc
+0x001d:[AVERage] <b> 1:ON,0:OFF
+  0x001b:TCONtrol <intvalue> | <str> 1:REPeat,0:MOVing
+  0x001c:COUNt <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+  0x001d:STATe <b> 1:ON,0:OFF
+0x001e:NPLCycles <b> 8:NEXT,7:BUFFER,6:DOWN,5:UP,4:NINFinity,3:INFinity,2:DEFault,1:MAXimum,0:MINimum
+0x0037:[MEASure]  
+  0x0034:[VOLTage]  
+    0x0034:DC  
+  0x0036:RESistance  
+0x003c:READ  
+0x003d:FETCh  
+0x007c:[OUTPut1] <b> 1:ON,0:OFF
+  :INTerlock 
+    0x007e:STATe <b> 1:ON,0:OFF
+    0x007f:TRIPped  
+  0x007c:STATe <b> 1:ON,0:OFF
+  0x007d:SMODe <intvalue> | <str> 4:GUAR22,3:GUARd,2:ZERO,1:NORMal,0:HIMPedance
+0x00c3:ABORt  
+0x00c6:[INITiate]  
+  0x00c6:IMMediate  
+0x00e2:[FORMat] <b> | <strlist> 2:REAL,1:SREal,0:ASCii
+  0x00e2:DATA <b> | <strlist> 2:REAL,1:SREal,0:ASCii
+  0x00e3:BORDer <intvalue> | <str> 7:SWAPped,6:NORMal
+  0x00e4:[ELEMents] <intvalue> | <str> | <strlist> 16:STATus,8:TIME,4:RESistance,2:CURRent,1:VOLTage
+    0x00e4:SENSe1 <intvalue> | <str> | <strlist> 16:STATus,8:TIME,4:RESistance,2:CURRent,1:VOLTage
+    0x00e5:CALCulate <intvalue> | <str> | <strlist> 32:CALCulate,16:STATus,8:TIME
+  0x00e6:SREGister <intvalue> | <str> 5:HEXadecimal,4:OCTal,3:BINary,0:ASCii
+  0x00e7:SOURCE2 <intvalue> | <str> 5:HEXadecimal,4:OCTal,3:BINary,0:ASCii
+===== root table @ 0x063714 =====
+0x0002:CLS  
+0x0003:ESE <intvalue> | <str> | <b> | <numlist> 
+0x0004:ESR  
+0x0005:IDN  
+0x0006:OPC  
+0x0007:OPT  
+0x0008:RCL <intvalue> 
+0x0009:RST  
+0x000b:SAV <intvalue> 
+0x000c:SRE <intvalue> | <str> | <b> | <numlist> 
+0x000d:STB  
+0x000e:TRG  
+0x000f:TST  
+0x0010:WAI  
