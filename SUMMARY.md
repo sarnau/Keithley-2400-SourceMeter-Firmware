@@ -326,6 +326,10 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
   on-demand CALC3 statistics. (Firmware exposes one configurable reading store, not two physical buffers.)
 
 ### Sweep Operation
+> Firmware implementation: see [SWEEP.md](SWEEP.md) — `BUILD_SWEEP_POINTS` (linear/log/list
+> point generation into `SWEEP_POINTS_BUFFER`), `SWEEP_POINT_PTR_ADVANCE` (per-trigger step +
+> source-memory wrap-at-100 and CALC2 PASS/FAIL branching), and the source-memory recall path.
+
 - Four types: **linear staircase** (start/stop/step), **log staircase** (start/stop/points), **custom** (per-point list), **source memory** (recall up to 100 saved setups — different functions/math per point). Only V or I sweeps; readings auto-stored.
 - `:SOUR:VOLT|CURR:MODE SWE|LIST|FIXed`; `:SOUR:SWE:SPACing LIN|LOG`, `:POINts` 2–2500, `:RANGing BEST|AUTO|FIXed`, `:CABort NEVer|EARLy|LATe`.
 - **Source-memory sweep branching:** on PASS branch to a memory location (`:CALC2:CLIM:PASS:SML`), else NEXT; fail-branch via `:CALC2:CLIM:FAIL:SML` (remote only). Trigger count should equal/multiple of sweep points.
