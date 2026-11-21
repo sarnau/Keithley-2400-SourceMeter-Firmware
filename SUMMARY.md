@@ -124,6 +124,10 @@ For full model coverage use Datasheet 2; for base-model numbers use Specificatio
 - **Line:** 2.5 A 250 V slow-blow; 100–240 VAC 50/60 Hz, 190 VA max (auto-ranging mains).
 
 ### Menu System & Navigation (firmware-relevant)
+> Firmware implementation: see [MENU.md](MENU.md) — the `MENU_ITEM_STRUCT` tree, the
+> `MENU_SELECT`/`MENU_CALL_SETUP` navigation state machine, setup/trigger `MENU_FN` dispatch,
+> value editing, and persistence via the front-panel command queue → config → EEPROM.
+
 - **CONFIG key** = configure prefix: CONFIG + a function key enters that function's config menu (CONFIG+SWEEP, +FILTER, +LIMIT, +FCTN, +DIGITS, +STORE, +SOURCE V/I, +MEAS Ω, …).
 - **MENU key** = main system menu (SAVESETUP, source-memory save, GPIB address, …).
 - Cursor positioned with ◄► arrow keys, confirmed with **ENTER**; **EXIT** backs out / cancels.

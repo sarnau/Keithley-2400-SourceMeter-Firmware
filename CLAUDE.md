@@ -80,10 +80,14 @@ that cross-reference it (inbound). `SUMMARY.md` links all of them, so it is omit
 - `FLOAT.md` — Pascal soft-float. ← from: (subsystem docs: none; linked from `SUMMARY.md` CPU row).
 - `GPIB.md` — TMS9914A driver. ← from: `BOOT.md`, `RS232.md`, `MEASURE.md`, `DISPLAY.md`, `TRIGGER.md`, `STATUS.md`.
 - `RS232.md` — QSM SCI serial RX/TX. ← from: `BOOT.md`, `GPIB.md`.
-- `DISPLAY.md` — front-panel VFD/display. ← from: `BOOT.md`, `MEASURE.md`.
+- `DISPLAY.md` — front-panel VFD/display. ← from: `BOOT.md`, `MEASURE.md`, `MENU.md`.
 - `DIAGNOSTIC.md` — `:DIAG:KEIT:*`. ← from: `CALIBRATION.md`.
 - **`CALIBRATION.md`** — cal data model, `:CAL:PROT:*`, fit math, factory helpers; §6.1 traces the
-  front-panel EXECUTE manual-cal sequence and the source range-FS tables `gFLOAT_ARRAY_VOLT/CURR`. ← from: `BOOT.md`, `DIAGNOSTIC.md`.
+  front-panel EXECUTE manual-cal sequence and the source range-FS tables `gFLOAT_ARRAY_VOLT/CURR`. ← from: `BOOT.md`, `DIAGNOSTIC.md`, `MENU.md`.
+- `MENU.md` — front-panel menu system: `MENU_ITEM_STRUCT` tree (root `MAIN_MENU`), navigation
+  (`MENU_SELECT`/`MENU_CALL_SETUP`, key dispatch), setup/trigger `MENU_FN` dispatch, menu-text
+  render, value editing, and persistence via the FP command queue → config → EEPROM. ← from:
+  (subsystem docs: none; linked from `SUMMARY.md` Menu System & Navigation).
 
 ## Reference material
 
