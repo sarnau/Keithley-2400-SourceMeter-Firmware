@@ -21,12 +21,33 @@ front-panel command queue, processed by the *same* executor as remote GPIB/RS-23
 | +0  | `menuLines` (`MENU_TEXTS *`) | the 3 display strings for this item |
 | +4  | `nextMenu` (`MENU_ITEM_STRUCT *`) | sibling / linked navigation target |
 | +8  | `parentMenu` (`MENU_ITEM_STRUCT *`) | parent item (ascend on EXIT) |
-| +12 | `itemType` (byte) | 0 = empty/placeholder, 1 = real menu |
+| +12 | `itemType` (`MENU_ITEM_TYPE` enum) | item kind — see enum below |
 | +13 | `selectCount1` (byte) | |
 | +14 | `selectCount2` (byte) | |
 | +16 | `menu` (`MENU_10_STRUCT *`) | **children**: array of up to 10 child items |
 | +20 | `setupFunction` (`MENU_FN *`) | enter/display handler (called to render the item) |
 | +24 | `triggerFunction` (`MENU_FN *`) | ENTER/act handler (called to apply the item) |
+
+**`MENU_ITEM_TYPE`** (the `itemType` enum, 1 byte) — the item kind, driving cursor/edit
+behaviour (`MENU_SELECT`, `MENU_IS_VALUE_EDIT_ACTIVE`, the `MENU_EDIT_*` functions):
+
+| Value | Name | Meaning |
+|---|---|---|
+| 0 | `MENU_ITEM_TYPE_STATIC` | non-selectable display/placeholder; no edit cursor (EMPTY, labels) |
+| 1 | `MENU_ITEM_TYPE_SUBMENU` | navigational parent (has children); default navigation |
+| 2 | `MENU_ITEM_TYPE_SELECT` | enumerated selection via `selectCount1`; value-edit-active |
+| 3 | `MENU_ITEM_TYPE_3` | role not proven (e.g. `MENU_ITEM_ULIMIT_*`) |
+| 4 | `MENU_ITEM_TYPE_4` | role not proven |
+| 5 | `MENU_ITEM_TYPE_SELECT_5` | like SELECT (selectCount + edit-active); no data instances |
+| 7 | `MENU_ITEM_TYPE_DIGIT_7` | digit-cursor edit (`gEditCursorPos`); edit-active |
+| 8 | `MENU_ITEM_TYPE_DIGIT_8` | digit-cursor edit |
+| 9 | `MENU_ITEM_TYPE_9` | role not proven |
+| 10 | `MENU_ITEM_TYPE_VALUE_EDIT` | numeric value edit; value-edit-active (e.g. `MENU_ITEM_RELVAL`) |
+| 11 | `MENU_ITEM_TYPE_VALUE_EDIT_11` | value edit; value-edit-active |
+
+The value-edit-active set is exactly `{2, 5, 7, 10, 11}` (`MENU_IS_VALUE_EDIT_ACTIVE`); 3, 4,
+9 and the precise edit-field distinction among the editable kinds are not fully proven and
+are flagged rather than guessed.
 
 - **`MENU_TEXTS`** (12 B): `{char *title; char *line_left; char *line_right}` — the 2-line VFD
   content plus a title.
