@@ -321,6 +321,9 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
 - **Digits** 3.5–6.5 (no effect on remote format). **Speed** = NPLC (FAST 0.01 → HI ACCURACY 10). **Filters:** repeating (default) vs moving average, count 1–100 (`:SENS:AVER`).
 - **REL (NULL):** displayed = actual − rel (`:CALC2:NULL`). **Math (CALC1, FCTN):** POWER, OFFCOMPOHM, VOLTCOEF, VARALPHA, %DEV built-in; up to 5 user-defined (bus-only) with operands VOLTage/CURRent/RESistance/TIME and operators + − * / ^ log ln sin cos tan exp.
 - **Data Store:** two separate 2500-reading buffers (5000 total). `:TRACe` subsystem; statistics via CALC3 (MEAN/SDEV/MAX/MIN/PKPK). Timestamp ABSolute or DELTa.
+  Firmware implementation: see [TRACE.md](TRACE.md) — the single `:TRACe` store (`gTraceStatBuffer`,
+  24-byte entries, ≤2500), the store path and `:FEED`/`:FEED:CONTrol`, 1 ms timestamps, and the
+  on-demand CALC3 statistics. (Firmware exposes one configurable reading store, not two physical buffers.)
 
 ### Sweep Operation
 - Four types: **linear staircase** (start/stop/step), **log staircase** (start/stop/points), **custom** (per-point list), **source memory** (recall up to 100 saved setups — different functions/math per point). Only V or I sweeps; readings auto-stored.

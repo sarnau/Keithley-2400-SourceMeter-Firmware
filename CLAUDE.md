@@ -62,10 +62,13 @@ that cross-reference it (inbound). `SUMMARY.md` links all of them, so it is omit
 - `BOOT.md` — reset/boot sequence: reset vector → SIM/clock/chip-selects → RAM test → ROM checksum →
   firmware-update mode → `VBR`/vector table → EEPROM config load → peripheral init → scheduler loop. ← from: `DISPLAY.md`, `TRIGGER.md` (also linked from `SUMMARY.md` power-on self-test).
 - `SCPI.md` — parser/dispatch. ← from: `BOOT.md`, `GPIB.md`, `RS232.md`, `MEASURE.md`, `CALIBRATION.md`, `DIAGNOSTIC.md`, `DISPLAY.md`.
-- `MEASURE.md` — A/D path. ← from: `BOOT.md`, `GPIB.md`, `RS232.md`, `SCPI.md`, `FLOAT.md`, `CALIBRATION.md`, `DIAGNOSTIC.md`, `DISPLAY.md`, `TRIGGER.md`, `STATUS.md`.
+- `MEASURE.md` — A/D path. ← from: `BOOT.md`, `GPIB.md`, `RS232.md`, `SCPI.md`, `FLOAT.md`, `CALIBRATION.md`, `DIAGNOSTIC.md`, `DISPLAY.md`, `TRIGGER.md`, `STATUS.md`, `TRACE.md`.
 - `TRIGGER.md` — two-layer Arm/Trigger state machine: SDM step chain, event sources
   (IMM/TIMer/TLINk/BUS/manual/SOT), counts/delays, Trigger-Link I/O, `:INIT`/`:ABORt`,
-  operation-status bits 303/305/306/310. ← from: `STATUS.md` (also linked from `SUMMARY.md` Triggering).
+  operation-status bits 303/305/306/310. ← from: `STATUS.md`, `TRACE.md` (also linked from `SUMMARY.md` Triggering).
+- `TRACE.md` — data store (`:TRACe`) & buffer statistics (`:CALC3`): the single reading store
+  (`gTraceStatBuffer`), store path/`:FEED`, 1 ms timestamps (ABS/DELta), and the on-demand
+  MEAN/SDEV/MAX/MIN/PKPK over the buffer. ← from: (subsystem docs: none; linked from `SUMMARY.md` Data Store).
 - `STATUS.md` — IEEE-488.2/SCPI status model: the `EventRegs_*` engine, register hierarchy
   (STB + ESR/Operation/Questionable/Measurement), per-bit maps, SRQ generation, the fixed
   positive-transition filter, error/event queue, `:STATus`/`*CLS`/`*SRE`/`*ESE`. ← from:
