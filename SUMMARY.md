@@ -329,6 +329,10 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
 
 ### Triggering (central to firmware)
 
+> Firmware implementation: see [TRIGGER.md](TRIGGER.md) — the Arm/Trigger state machine,
+> the SDM function-pointer step chain, event-source bitmasks, Trigger-Link TPU I/O, and
+> the operation-status bits.
+
 **Two-layer trigger model (Arm + Trigger), actions Source/Delay/Measure:**
 - **Idle** (ARM annunciator off): leave via OUTPUT ON (front) or `:INITiate`/`:READ?`/`:MEASure?` (remote). Return via HALT / `:ABORt`.
 - **Arm layer** event sources: IMMEDIATE, BUS (GET/`*TRG`), TIMER, MANUAL (TRIG key), TLINK, NSTest/PSTest/BSTest (start-of-test SOT low/high/either). `:ARM:COUNt` 1–2500 or INFinite.
@@ -356,6 +360,10 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
 - **Firmware transport paths:** [RS232.md](RS232.md) documents the 68332 QSM SCI serial receive/transmit implementation (vector-64 ISR, receive/output buffers, software XON/XOFF, terminator append); [GPIB.md](GPIB.md) covers the TMS9914A side. Both converge on the same SCPI parser — only the byte transport differs.
 
 ### Status Structure (Status Model)
+
+> Firmware implementation: see [STATUS.md](STATUS.md) — the `EventRegs_*` engine, the
+> register hierarchy (STB + ESR/Operation/Questionable/Measurement), per-bit maps, the
+> SRQ-generation path, the fixed positive-transition filter, and the `:STATus` command map.
 
 **Status Byte Register:**
 
