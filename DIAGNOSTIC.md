@@ -52,12 +52,11 @@ The `:CNT:*` counts feed the reading formula `(SIG2−ZERO)/(REF−ZERO)·gain+o
 
 | Cmd | cmdId | Conf | Action |
 |---|---|---|---|
-| `:VREF <n>` | 0x18C | H | scale the default calibration constants by a voltage-reference % (`CALIBRATION_APPLY_VREF_SCALING`, float math) and write to the I²C EEPROM |
-| `:INITCAL` | 0x18D | M | initialize/seed calibration (VREF scaling + reset, then command-done) |
-| `:CCR` | 0x171 | M | contact-check calibration/result (checksum + response) |
+| `:VREF <v>` | 0x18C | H | store the measured ~6.2 V reference (6.0…7.0) as `round((v−6)·100)` in CURRENT_CONFIG (EEPROM); applied by `:INITCAL` — see [CALIBRATION.md](CALIBRATION.md) §5 |
+| `:INITCAL` | 0x18D | H | `CALIBRATION_APPLY_VREF_SCALING`: reload model default cal, scale sense gains by `(6+VREF/100)/6.2`, **overwrite cal data in EEPROM** |
+| `:CCR` | 0x171 | H | **Cal Count Reset** — `calibrationCount = 0`, rewrite cal-info block |
 
-(The user-facing `:CALibration:PROTected:*` set is documented separately in the Service Manual /
-[SUMMARY.md](SUMMARY.md).)
+(The user-facing `:CALibration:PROTected:*` set is documented in [CALIBRATION.md](CALIBRATION.md).)
 
 ---
 
@@ -93,7 +92,7 @@ matching the EEPROM layout decoded by [parse_flash.py](parse_flash.py).
 | `:FAN <n>` | 0x155 | M | set **fan speed** directly |
 | `:KEYLOCK NONE\|FEDERAL\|JUAREZ` | 0x186 | M | front-panel **lockout level** (enum param; disables key IRQ) |
 | `:SECRET <b>` | 0x17F | H | set `gDIAGNOSTIC_KEITHLEY_SECRET` (unlock the diagnostic command set) |
-| `:UNLOCK` | 0x146 | ? | unlock diagnostic/calibration access |
+| `:UNLOCK` | 0x146 | H | unlock calibration **without the password** (fakes `:CAL:PROT:CODE` with the stored password) — [CALIBRATION.md](CALIBRATION.md) §5 |
 
 ---
 
@@ -109,6 +108,50 @@ matching the EEPROM layout decoded by [parse_flash.py](parse_flash.py).
 | `:STES` | 0x172 | ? | start/run a self-test step |
 | `:FTYP?` | 0x181 | ? | query firmware type |
 | `:EES?` | 0x182 | ? | query EEPROM status / error |
+
+---
+
+## Dormant trace-pk2pk noise diagnostic (disabled in shipping firmware)
+
+A leftover factory noise/stability monitor exists in the image but is **wired off**:
+
+- `DIAG_TRACE_PK2PK_MONITOR_UPDATE` (`0x50548`) / `DIAG_TRACE_PK2PK_MONITOR_RESET` (`0x50514`)
+  have **no caller or pointer anywhere in the 512 KB image** — the update routine is never run.
+- When run, each call bumps `gTRACE_PK2PK_SAMPLES` and computes `CALCULATE2_STAT_PK2PK` (MAX−MIN)
+  over the reading buffer at `0x826c8c`. Per-channel pk2pk over a fixed threshold increments a
+  counter: `>3.7e-16` → `gTRACE_PK2PK_CNT_LO`, `>9.25e-16` → `gTRACE_PK2PK_CNT_HI`; the buffer's
+  overflow bit sets `gTRACE_PK2PK_OVF`. Every 100 calls (`gTRACE_PK2PK_WINDOW`) it folds each
+  counter through an `exp(-0.1·N)` Poisson-style series into `gTRACE_PK2PK_PROB_LO/HI` — but those
+  two floats are **write-only** (no reader in the image), i.e. vestigial.
+- The only would-be output is `DISPLAY_BUILD_STATUS_ANNUNCIATORS` printing `"%03d/%03d/%03d"`
+  (`CNT_LO / CNT_HI / SAMPLES`) when `gDISP_PK2PK_DIAG_MODE` (`0x80381b`) is set — and that flag is
+  only ever **cleared** (`SWITCH_TO_LOCAL_CONTROL`); no code path sets it true. So the readout never
+  appears. Structure/wiring confidence **H**; the exact statistical intent of the Poisson series and
+  the two tiny thresholds is inferred.
+
+> This was previously mis-labelled `MEASURE_REPEAT_STATS_UPDATE/RESET` (implying active
+> repeatability statistics). It is **not** the `:CALC2` statistics path — those are the separate,
+> live `CALCULATE2_STAT_{MINIMUM,MAXIMUM,PK2PK,…}` routines.
+
+## Unreferenced packed-code decoder (`DECODE_PACKED_CODE_STRING`, `0x4fdd0`)
+
+Another orphan: **no caller, pointer, or encoder counterpart** exists anywhere in the image, and no
+sample string of this form is present in the data, so its real-world meaning can't be recovered from
+the firmware. Only the **encoding** is certain (the purpose is unknown — an earlier "date/revision
+code" label was a guess and has been withdrawn).
+
+It maps a fixed 5-character code `L d d S c` to an integer:
+
+| Pos | Field | Constraint | Contribution |
+|---|---|---|---|
+| 0 | `L` | letter (`isalpha`) | `(L−'A')·6300`  → A–Z = 0–25 |
+| 1–2 | `d d` | two ASCII digits | `(10·d1+d2)·63` → 0–99 |
+| 3 | `S` | space or `.` | value-neutral (`"A12.X"` == `"A12 X"`) |
+| 4 | `c` | base-63 digit from `" 0-9A-Za-z"` | `base63(c)` → 0–62 |
+
+`result = (L−'A')·6300 + (10·d1+d2)·63 + base63(c)` (= `((L−'A')·100 + DD)·63 + base63(c)`), range
+**0–163799**; returns **−999** on any format violation. `6300 = 0x189c = 100·63`, `63 = 0x3f`; the
+alphabet literal lives at `0x72ec2`.
 
 ---
 

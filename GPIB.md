@@ -55,6 +55,10 @@ TMS9914A INT  ──►  CPU32 IRQ level 3  ──►  autovector 27 (VBR 0x4000
 00035eb2: rte
 ```
 
+The slot `gGPIB_EXCEPTION_LEVEL_3_CALLBACK` (`0x801378`) is typed **`VOIDFN *`** = `void (void)`
+(set in `TMS9914A_RECEIVE_SETUP` to `0x35EE6` / `0x36410`). See the function-pointer sweep in
+[MEASURE.md](MEASURE.md) §4b.
+
 `0x801378` selects the handler by protocol mode (`gCONFIG_COMM.SYSTEM_MEP_STATE`):
 - **SCPI mode** → `TMS9914A_SCPI_EXCEPTION_LEVEL_3` (`0x35EE6`)
 - **IEEE-488.1 / MEP mode** → an alternate handler (cf. `TMS9914A_488_1_CALLBACK_CONTINUE`)
@@ -116,14 +120,33 @@ Reads `IntStatus0` (accumulated into `gGPIB_TMS9925A_IntStatus0`) and `IntStatus
 from TAIL via the `gGPIB_GET_BYTE` function pointer and feeds the SCPI parser ([SCPI.md](SCPI.md) §3).
 RX and command execution are thus decoupled.
 
+`gGPIB_GET_BYTE` (`0x808570`) is typed **`GPIB_GET_BYTE_FN *`** where
+`GPIB_GET_BYTE_FN = int (word *dest)` — it writes the next received word into `*dest` and returns a
+receive status. `TMS9914A_RECEIVE_SETUP` swaps it between `TMS9914A_SCPI_READ_BYTE` (`0x35C60`) and
+`TMS9914A_488_1_READ_BYTE` (`0x35A20`) by protocol mode, paralleling `RS232_GET_BYTE_FROM_RCVBUF` on
+the RS-232 side. The call site now decompiles as
+`gParserInputReceiveStatus = (*gGPIB_GET_BYTE)(&gParserInputCode);` with no `code *` cast.
+
 ---
 
 ## 6. Transmit path
 
-On each **BO** interrupt the output state machine streams one byte from `PTR_00801302`
+The talker is a state machine, **`RESPONSE_OUTPUT_PUMP`** (`0x37D5E`): it pops formatted results from
+the output queue (`COMMAND_QUEUE_POP` → `RESPONSE_ADD_VALUE` into `gRESPONSE_BUFFER`) and stages them
+for transmission. Its state is **`gRESPONSE_OUTPUT_STATE`** (`0x8012D9`): `0`=init, `1`=pop+format
+first, `2`/`3`=continue (GPIB / re-queued path), `4`/`5`=done/EOI; transitions follow the
+`RESPONSE_ADD_VALUE` return code (1–4). Key flags: `gRESPONSE_BYTE_PENDING` (`0x8012C7`, a byte is in
+the 9914 awaiting handshake — the BO ISR clears it), `gRESPONSE_OUTPUT_DONE` (`0x8012D7`, response
+buffer exhausted), `gRESPONSE_PUMP_HOLD` (`0x8012C9`, entry gate). A handful of neighbouring bytes
+(`0x8012C5/CA/CB/D3/E0`) are intertwined handshake gates left unnamed.
+
+On each **BO** interrupt the state machine streams one byte from `PTR_00801302`
 (remaining count `WORD_008012FC`) to `DataOut` (`0x900007`). When the buffer empties it terminates
 the response with **LF + EOI** via `GPIO_DATA_SEND_LF_AND_EOI_0003B358` / `GPIO_DATA_OUT_RESPONSE`.
-Response strings come from the SCPI executor's result builder (`COMM_BUILD_RESULTSTR`).
+Response strings come from the SCPI executor's result builder, reached through the swappable pointer
+`FUNCPTR_COMM_BUILD_RESULTSTR` (`0x8086FC`) — set per protocol by `CHECK_CONFIGURATION_CHECKSUMS`.
+The **RS-232 counterpart** of this output pump is `RESPONSE_RS232_BUILD_RESULTSTR` (`0x3BA74`),
+documented in [RS232.md](RS232.md) §4.
 
 ---
 
@@ -167,7 +190,7 @@ All handshake/flow control is issued through the **Aux Command register `0x90000
 | `TMS9914A_000363AA` | `0x363AA` | device-clear (DCAS) handler |
 | `gGPIB_RECEIVE_BUFFER` | (RAM) | 2048-entry RX ring, idx `&0x7FF` |
 | `gGPIB_RECEIVE_BUFFER_HEAD/TAIL` | (RAM) | ring indices |
-| `gGPIB_GET_BYTE` | (RAM fn-ptr) | parser-side RX byte fetch |
+| `gGPIB_GET_BYTE` | `0x808570` | parser-side RX byte fetch; typed `GPIB_GET_BYTE_FN *` = `int (word *)` |
 | `PTR_00801302` / `WORD_008012FC` | (RAM) | TX buffer pointer / remaining count |
 | default IRQ stub | `0x4F78` | all non-GPIB IRQ levels |
 
@@ -191,4 +214,8 @@ input bytes ─────────────┤
 ```
 
 Both interfaces feed the **same** SCPI parser/executor; only the byte transport differs.
-RS-232 (the QSM SCI path) is the natural next thing to document.
+The RS-232 (QSM SCI) side — ISR `EXCEPTION_USER_64_RS232` (0x3BEBC), the 512-byte linear receive
+buffer, `RS232_GET_BYTE_FROM_RCVBUF` (0x3C380), the transmit path (`RESPONSE_RS232_BUILD_RESULTSTR`
+0x3BA74 → `gRS232_OUTPUT_BUF` → SCI TDRE drain), baud/parity/flow-control config, and XON/XOFF — is
+documented in **[RS232.md](RS232.md)**. Both output pumps are selected by the shared
+`FUNCPTR_COMM_BUILD_RESULTSTR` (0x8086FC) pointer.

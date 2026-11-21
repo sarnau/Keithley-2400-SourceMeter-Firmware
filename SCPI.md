@@ -70,7 +70,7 @@ Two root tables, each an array of pointers to `Command` structs:
 Commands nest recursively to form the tree. For enum-parameter commands, the param sub-table
 holds `Command` entries whose **cmdId is the enum value** (e.g. `0x00CD:OUTPut … 4:TENTer,2:TEXit,1:TRIGger,0:NONE`).
 
-Ghidra has a `COMMAND_ID_ENUM` mapping cmdId→name. Full dump: [SCPI_COMMANDS.txt](SCPI_COMMANDS.txt).
+Ghidra has a `COMMAND_ID` enum mapping cmdId→name. Full dump: [SCPI_COMMANDS.txt](SCPI_COMMANDS.txt).
 
 ### Top-level subsystems
 `:ARM` · `:TRIGger` · `:SOURce1` · `:SOURCE2` · `:SENSe1` · `:CURRent` · `:VOLTage` · `:RESistance` ·
@@ -113,6 +113,18 @@ combo `0x86` at power-on). Includes `:IBBR` (set model id `KI2400…KI2425`), `:
 
 **Token matcher** — `PARSER_FUNCTION_COMMAND_FIND(list)` (`0x2F226`): exact-compares the accumulated token
 (`gCOMMAND_NAME` / `gCOMMAND_NAME_LEN`) against each entry of `list` and sets `gCOMMAND_PTR`.
+
+**Tokenizer working vars** (scratch state the parser states share while accumulating a token/parameter):
+
+| Var | Addr | Role |
+|---|---|---|
+| `gPARSER_TOKEN_BUF` / `gPARSER_TOKEN_IDX` | `0x8001D0` (`char[40]`) / `0x8001CE` | numeric/keyword token accumulated char-by-char (capped at 40) |
+| `gPARSER_PARAM_IDX` | `0x804614` | index of the parameter being filled in `gPARSER_VALUE.paramType[]` |
+| `gPARSER_STR_TYPE` / `gPARSER_STR_DELIM` | `0x801372` / `0x805A9C` | string/block param subtype (1/2/4) and the saved opening delimiter/quote char |
+| `gPARSER_LIST_IDX` | `0x8001FC` | element index into the numeric-list parameter buffer (`0x803878`) |
+| `gFORMULA_STR_IDX` | `0x808736` | write index into `gFormula_String` for the `:CALC` math-expression parser (`PARSER_FUNCTION_46`) |
+
+(The heavily-shared `WORD_00800212` number-parse state var and `LONG_00800214` are left unnamed — their exact cross-state semantics aren't pinned down.)
 The search list is `gPARSER_COMMAND_NEXT`, which is reset to `COMMANDS_ROOT_SCPI` by
 `PARSER_FUNCTION_COMMAND_RESET_TO_SCPI_COMMANDS` (`0x2F1F2`) and advanced to a command's
 sub-table / param-table as the tree is descended.
@@ -155,6 +167,24 @@ After a command name + space, `PARSER_FUNCTION_8` finalizes the match and branch
 (INT/BOOL/NUMLIST/0x17→1, 0x12→2, 0x13/0x14→2, 0x16→0x62…), telling the number states whether to
 store byte/short/long/float. `dump_scpi.py` renders the low bits as `<intvalue>`/`<str>`/`<b>`/
 `<strlist>`/`<numlist>` for readability.
+
+### `<num-list>` buffer — `gPARSER_STRUCT_LIST` (`0x80583C`)
+
+A `NUMLIST` (paramType `0x10`) argument collects into **`gPARSER_STRUCT_LIST`**, an array of
+**`PARSER_NUMLIST_ENTRY[100]`** (6 bytes each):
+
+| off | field | meaning |
+|---|---|---|
+| +0 | `bTypeCode` | per-element value-type / unit tag (1–9 = value-type × unit-suffix combination) |
+| +1 | — | padding |
+| +2 | `flValue` | the parsed float value |
+
+As each number in the list is finalized, `PARSER_FUNCTION_00032A8C` writes that element's
+`bTypeCode` and `flValue`; the entry count is held in `STROUT_length` (capped at 100). On executor
+hand-off the `paramType 0x10` case of `PARSER_FUNCTION_00035364` serializes the list as a count word
+followed by `[bTypeCode byte][flValue 4-byte float]` per entry, and the receiving param slot in
+`gPARSER_VALUE` is pointed at `gPARSER_STRUCT_LIST`. (Single scalar numbers instead go through the
+`PARSER_NUMBER` accumulator — see [MEASURE.md](MEASURE.md)/the number-parse states.)
 
 ---
 
@@ -254,10 +284,11 @@ The 72 `attr==0` entries are all read-only nodes (`*IDN?`/`*ESR?`/`*STB?`/`*TST?
 | `PARSER_FUNCTION_COMMAND_FIND` | `0x2F226` | token matcher |
 | `PARSER_FUNCTION_COMMAND_RESET_TO_SCPI_COMMANDS` | `0x2F1F2` | `gPARSER_COMMAND_NEXT = root` |
 | `gPARSER_VALUE` | `0x802800` | parsed-command scratch record |
+| `gPARSER_STRUCT_LIST` | `0x80583C` | `<num-list>` buffer, `PARSER_NUMLIST_ENTRY[100]` (see §5) |
 | `gPARSER_COMMAND_NEXT` | (RAM) | current search table pointer |
 | `gCOMMAND_PTR` | (RAM) | last matched `Command` |
 | `EXECUTE_COMMAND_TILL_DONE` | `0x168FE` | executor pump |
-| `FUNCPTR_EXECUTE_COMMAND` | `0x8086D8` | current executor state (RAM fn-ptr) |
+| `FUNCPTR_EXECUTE_COMMAND` | `0x8086D8` | current executor state (RAM fn-ptr); typed `EXECCMD_FN *` = `int (void)` (see [MEASURE.md](MEASURE.md) §4b) |
 | `EXECUTE_NEXT_COMMAND` | `0x16D6A` | queue pop + query/set routing |
 | `EXECUTE_COMMAND_MAIN` | `0x17694` | SET dispatcher |
 | `EXECUTE_COMMAND_QUERY` | `0x20F1A` | QUERY dispatcher (largest fn, 6634 instr) |

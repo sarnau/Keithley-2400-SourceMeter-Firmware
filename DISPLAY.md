@@ -73,7 +73,11 @@ and the diagnostic `:DIAG:KEIT:DISP`/`:DCMD` commands.
    `0x86`, `0x84` — see [SCPI.md](SCPI.md)/`main`). If invalid, the revision defaults to `"XXX.XX"`.
 
 So the display-board identity, firmware revision, and the power-on key combo all come back over this
-same serial link during init.
+same serial link during init. A missing/invalid reply (revision left as `"XXX.XX"`) is the main-MPU
+side of the service-manual **"No Comm Link"** condition — the front-panel processor and main MPU
+failed to establish this link (reseat ROMs U15/U16, per [SUMMARY.md](SUMMARY.md)). The link is also
+brought up at reset before `main` — see the boot flow in [BOOT.md](BOOT.md) (TPU display/keyboard
+channels, `DISPBOARD_INITIALIZE` returning the boot key-combo).
 
 display→CPU = key-event bytes and query replies. The CPU→display command set is reversed below.
 
@@ -130,16 +134,63 @@ KEY_GET_NEXT_KEYCODE_BY_MODE (0x3CFE0)   arbitrates by gKeyboardMode:
         │
         ▼
 KEY_DISPATCH_KEYCODE_HANDLER (0x3D340)
-   • autorepeat via KEY_GET_AUTOREPEAT_KEYCODE (0x3D54A) + 800-tick delay (BOOL_00808738)
+   • autorepeat (BOOL_00808738 set): while a repeatable key is held, KEY_GET_AUTOREPEAT_KEYCODE
+     (0x3D54A) re-returns the stored gAUTOREPEAT_KEYCODE **unchanged** on each timer expiry
+     (ramp 800→400→100 ticks), so KEY_EXECUTE_PRESS_FUNCTION hits the *same* KEY_HANDLER_TABLE slot
+     as the first press (verified: hold 0x41 → RANGE_UP each tick); between ticks it returns
+     KEYCODE_none (no action), and a fresh DISPBOARD_KEY press interrupts the repeat. Two caveats:
+     RANGE ▲/▼ only autorepeat when gKEYBOARD_MODIFIER_MODE ≠ DEFAULT, and a held TOGGLE with
+     BOOL_008057ce set remaps to pseudo-key 0x61.
    • beep on press (CPU_TPU_CH12_BEEPER)
-   • LOCAL mode: binary-search KEYCODE_ARRAY_0003D3CE, dispatch via jump table WORD_ARRAY_0003D3BA
-     → per-key handler (FUNCTION_KEYCODE_0x..)
+   • autorepeat gate: binary-search KEYCODE_ARRAY_0003D3CE (10 repeatable keys) — a match sets
+     gAUTOREPEAT_KEYCODE (hold-to-repeat), a miss clears it. The following WORD_ARRAY_0003D3BA
+     "jump table" is a DEGENERATE compiler switch: all 10 offsets are identical (+0x28), so every
+     case lands on one shared block at 0x3D3E2 (key beep + remote-mode gating) — it is NOT a per-key
+     dispatch. Actual per-key action happens later via KEY_HANDLER_TABLE (below).
    • REMOTE mode (BOOL_00805800): only LOCAL, OUTPUT ON/OFF, and TRIG keys act — OUTPUT aborts to
      idle and reconfigures the active interface; TRIG triggers a measurement (manual's safety rule).
 ```
 
 Front-panel keys can also be injected remotely via `:SYSTem:KEY` (cmdId 0x90) and `:DIAG:KEIT:KEY`
 (0x170).
+
+### Per-key dispatch — `KEY_HANDLER_TABLE`
+
+Once a keycode has been produced, **`KEY_EXECUTE_PRESS_FUNCTION(keyCode)`** (`0x3F692`, called from
+`MENU_CALL_SETUP` `0x3CFC2`) dispatches it through a single function-pointer table:
+
+```
+KEY_HANDLER_TABLE[ keyCode - 0x3F + 45 * gKeylockState ]()      // void(void)
+```
+
+- **`KEY_HANDLER_TABLE`** (`0x63936`) is typed **`VOIDFN *[180]`** = **4 keylock banks × 45 keys**
+  (`gKeylockState` 0–3 selects the bank). Raw code `K` (`0x40`–`0x6C`) maps to slot `K − 0x3F`
+  within the bank. It sits immediately after `DISPLAY_TEST_PATTERN_FUNCTABLE`.
+- Each live slot points at a **`FUNCTION_KEYCODE__<key>`** handler; every inactive slot points at the
+  shared no-op **`NOP_RETURN_STUB`** (`0x473D0`). Bank 0 (unlocked) has ~42 live keys; banks 1–3
+  (keylock) route all but the keys that stay live when locked (ENTER, EXIT, the arrows, …) to the
+  stub — matching real keylock behaviour.
+- The handler names were recovered from the **`KEYCODE` enum** (authoritative) and confirmed by both
+  behaviour and the scanner's independent use of the same constants (e.g. `KEYCODE_0_LOCAL` `0x57` is
+  the keylock-bypass case; `KEYCODE_OUTPUT_ON/OFF` `0x58` aborts output). Examples:
+  `__MENU` (`0x44`, opens the main menu), `__EXIT` (`0x4B`, `MENU_GET_PARENT`/abort),
+  `__ENTER` (`0x52`, `MENU_SELECT`), `__LOCAL` (`0x57`, `SWITCH_TO_LOCAL_CONTROL`),
+  `__CAL` (`0x59`, cal unlock), `__LEFT_ARROW`/`__RIGHT_ARROW` (`0x43`/`0x4A`), `__NOT_PRESSED`
+  (`0x40`, idle). Codes **`0x61`–`0x6B`** are **synthetic keycodes** (no silkscreen label): the
+  firmware *injects* them back into this dispatcher to invoke a handler programmatically, through the
+  mode-latch variables that `KEY_GET_NEXT_KEYCODE_BY_MODE` returns —
+  **`gKEYCODE_MODE_3`** (`0x803A17`): `0x62` (refresh display text), `0x66` (apply unit menu, from
+  `CONFIGURE_MEASURE_FUNCTION`), `0x68` (edit digit weight, from source-program paths), `0x69` (edit
+  init cursor); **`gKEYCODE_MODE_4`** (`0x803864`): `0x6A`/`0x6B` from `MENU_EDIT_PROCESS_KEY`;
+  the **held-TOGGLE autorepeat** remap → `0x61`; and the SCPI `:SYST:KEY`/`:DIAG:KEY` path (mode-5
+  latch `0x80381A`). The `KEYCODE` enum members `0x61`–`0x6B` are named `KEYCODE_SYN_*` accordingly
+  (`0x67` and `0x6C`+ are unused — NOP handler, no producer). The matching handlers are
+  `FUNCTION_KEYCODE_0x6N_*` (e.g. `_0x62_refresh_display_text`, `_0x65_reset_frontpanel_defaults`).
+- **Decompiler note:** the compiler addresses the table with `lea 0x63936` + a `-0xFC` displacement,
+  which constant-folds the base to `0x6383A`; the decompiler therefore anchors the call on the nearest
+  symbol, `PTR_ARRAY_00063832` (a legitimate `char *` enum-string table — see `RESPONSE_ADD_CUSTOM_TYPE`),
+  and still prints a `(code *)` cast there. That is a display artefact: the backing data is fully typed
+  as `KEY_HANDLER_TABLE`. (See the function-pointer typing sweep in [MEASURE.md](MEASURE.md) §4b.)
 
 ### Key codes
 
@@ -167,9 +218,12 @@ passes it through untranslated; `KEY_DISPATCH` works on it directly). The `:SYST
 | 0x4F | 15 | MEAS V | 0x5F | 31 | DIGITS |
 | 0x50 | 16 | TOGGLE | 0x60 | 32 | FRONT/REAR |
 
-**Special pre-dispatch keys** (the 9-entry binary-search array `KEYCODE_ARRAY_0003D3CE` =
-`41 42 43 4A 50 51 54 55 5A`): the four arrows, TOGGLE, RANGE▼, TRIG, RECALL, SOURCE▲ — the
-navigation/edit/trigger keys handled ahead of the normal path.
+**Auto-repeatable keys** (the 10-entry binary-search array `KEYCODE_ARRAY_0003D3CE` =
+`41 42 43 4A 50 51 54 55 5A 61`): RANGE ▲, SOURCE ◄/▼, EDIT ◄, EDIT ►, TOGGLE, RANGE ▼, TRIG,
+RECALL, SOURCE ►/▲, and synthetic `0x61` — the keys that may be *held to repeat*. Matching one only
+sets `gAUTOREPEAT_KEYCODE`; it does **not** route to a distinct handler (the `0x3D3BA` offset table
+is all `+0x28`, i.e. a single shared case — verified). Every key, repeatable or not, is dispatched
+to its action by `KEY_EXECUTE_PRESS_FUNCTION`/`KEY_HANDLER_TABLE` (see above).
 
 In **remote** mode only LOCAL (`0x57`), ON/OFF (`0x58`) and TRIG (`0x54`) act.
 
@@ -198,6 +252,14 @@ composed into `gDISP_LINES_DATA` by the `DISPLAY_FORMAT_*` / `DISPLAY_BUILD_*` r
 + units + annunciators on the top line; source/compliance on the bottom), then pushed with
 `DISPBOARD_SEND_BYTES`. `:DISPlay:TEXT`/`:WINDow2:TEXT` override the lines with user text.
 
+**Refresh gating:** the rebuild routines (via `DISPLAY_EXECUTE_ACTION`) set the dirty flag
+**`gDISPLAY_DIRTY`** (`0x807ED8`); only when it is set does `DISPLAY_UPDATE` ship
+`gDISPLAY_SEND_DATA_BUF` to the board and clear it — so the VFD is written only when content actually
+changed. Which measurement view the top line shows is selected by **`gDISPLAY_VIEW_MODE`**
+(`0x805834`), cycled `0→1→2→3` by the **TOGGLE** key (`FUNCTION_KEYCODE__TOGGLE`) and reset to `0` by
+`DISPLAY_UPDATE` in certain states. In menus, `MENU_RENDER_DISPLAY_LINES` picks the current line's
+fixed string by **`gMENU_STR_INDEX`** (`0x805258`).
+
 ---
 
 ## 7. Key addresses
@@ -209,11 +271,18 @@ composed into `gDISP_LINES_DATA` by the `DISPLAY_FORMAT_*` / `DISPLAY_BUILD_*` r
 | CH0 RX ISR `EXCEPTION_USER_80_DISPLAY_BOARD` | `0x3CE6C` | vec 80 |
 | CH1 TX ISR `EXCEPTION_USER_81_SEND_BYTE_TO_DISPLAY` | `0x3CE9C` | vec 81 |
 | `DISPBOARD_SEND_BYTES` | `0x3CD2E` | TX buffer + CIER\|2 |
+| `DISP_FILL_SEND_DATA_BUF` | `0x4D4F8` | build full-refresh packet → `gDISPLAY_SEND_DATA_BUF` |
+| `DISP_APPEND_ANNUTATIONS_TO_OUTPUT` | `0x4D812` | 6-byte annunciator-only frame (`06 lo hi AA ~lo ~hi`) |
+| `gDISP_ANNUTATIONS` / `gDISPLAY_SEND_DATA_BUF` | `0x80562A` / `0x805158` | annunciator bitmask / TX frame buffer |
 | `DISPBOARD_RECEIVE` | `0x3CC3A` | RX → ring + line buffer |
 | `DISPBOARD_KEY` / `DISPBOARD_READ_KEY` | (named) | pop keycode from ring |
 | `DISPBOARD_INITIALIZE` | (named) | `0x0F` identify, parse rev + boot key |
 | `KEY_GET_NEXT_KEYCODE_BY_MODE` | `0x3CFE0` | keyboard-mode arbiter |
-| `KEY_DISPATCH_KEYCODE_HANDLER` | `0x3D340` | main key dispatch (jump table `0x3D3BA`) |
+| `KEY_DISPATCH_KEYCODE_HANDLER` | `0x3D340` | raw-key read + autorepeat/beep; special-key jump table `0x3D3BA` |
+| `KEY_EXECUTE_PRESS_FUNCTION` | `0x3F692` | per-key dispatch via `KEY_HANDLER_TABLE` |
+| `KEY_HANDLER_TABLE` | `0x63936` | `VOIDFN *[180]` — 4 keylock banks × 45; slot = `K−0x3F + 45·lock` |
+| `NOP_RETURN_STUB` | `0x473D0` | shared no-op for inactive key slots |
+| `MENU_CALL_SETUP` | `0x3CFC2` | front-panel pump: get keycode → `KEY_EXECUTE_PRESS_FUNCTION` |
 | `KEY_GET_AUTOREPEAT_KEYCODE` | `0x3D54A` | held-key repeat |
 | `CPU_TPU_CH12_BEEPER` | (named) | key-press beep |
 | `CIER` / `CISR` / `CFSR3` | `0xFFFE0A` / … | TPU channel control |

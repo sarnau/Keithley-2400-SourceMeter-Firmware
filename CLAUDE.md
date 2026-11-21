@@ -14,7 +14,7 @@ A **reverse-engineering project** for the firmware of a Keithley 2400 SourceMete
 - **Firmware flash:** two AT49F002T chips — U15 = ODD/MSB (`2400-803*.x`), U16 = EVEN/LSB (`2400-804*.x`). The combined image is `2400c34.x`.
 
 ### Memory map (see `README.md` for detail)
-- `0x000000-0x07FFFF` 512KB flash: booter `0x0000-0x0FFF`; RAM-copied code `0x1000-0x3FFF`; vector table + main firmware from `0x4000`.
+- `0x000000-0x07FFFF` 512KB flash: booter `0x0000-0x0FFF`; flash-programmer code `0x1000-0x3FFF` (copied to RAM and run only in firmware-update mode, not on normal boot — see [BOOT.md](BOOT.md)); vector table + main firmware from `0x4000` (`VBR` set to `0x4000` after POST).
 - `0x080000-0x083FFF` 256KB RAM · `0x090000` TMS9914A · `0xF00000-0xF007FF` TPU RAM · `0xFFF000-0xFFFFFF` MC68332 I/O registers.
 
 ## Two kinds of Python scripts — do not confuse them
@@ -53,6 +53,23 @@ Use the **`mcp__ghidra__*` tools** against the live program `2400-FIRMWARE.bin`:
 - The knowledge-DB tools (`query_knowledge_context`, `store_function_knowledge`) report "not available" for this project — don't rely on them.
 
 The Ghidra project is `Keithley2400CFirmware.gpr` + `Keithley2400CFirmware.rep/`. Treat `*.lock` / `tmp*.ps` files as transient Ghidra artifacts (ignore in commits).
+
+## Subsystem notes
+
+Reverse-engineering write-ups per subsystem. Each `← from:` line lists the other subsystem docs
+that cross-reference it (inbound). `SUMMARY.md` links all of them, so it is omitted below.
+
+- `BOOT.md` — reset/boot sequence: reset vector → SIM/clock/chip-selects → RAM test → ROM checksum →
+  firmware-update mode → `VBR`/vector table → EEPROM config load → peripheral init → scheduler loop. ← from: `DISPLAY.md` (also linked from `SUMMARY.md` power-on self-test).
+- `SCPI.md` — parser/dispatch. ← from: `BOOT.md`, `GPIB.md`, `RS232.md`, `MEASURE.md`, `CALIBRATION.md`, `DIAGNOSTIC.md`, `DISPLAY.md`.
+- `MEASURE.md` — A/D path. ← from: `BOOT.md`, `GPIB.md`, `RS232.md`, `SCPI.md`, `FLOAT.md`, `CALIBRATION.md`, `DIAGNOSTIC.md`, `DISPLAY.md`.
+- `FLOAT.md` — Pascal soft-float. ← from: (subsystem docs: none; linked from `SUMMARY.md` CPU row).
+- `GPIB.md` — TMS9914A driver. ← from: `BOOT.md`, `RS232.md`, `MEASURE.md`, `DISPLAY.md`.
+- `RS232.md` — QSM SCI serial RX/TX. ← from: `BOOT.md`, `GPIB.md`.
+- `DISPLAY.md` — front-panel VFD/display. ← from: `BOOT.md`, `MEASURE.md`.
+- `DIAGNOSTIC.md` — `:DIAG:KEIT:*`. ← from: `CALIBRATION.md`.
+- **`CALIBRATION.md`** — cal data model, `:CAL:PROT:*`, fit math, factory helpers; §6.1 traces the
+  front-panel EXECUTE manual-cal sequence and the source range-FS tables `gFLOAT_ARRAY_VOLT/CURR`. ← from: `BOOT.md`, `DIAGNOSTIC.md`.
 
 ## Reference material
 

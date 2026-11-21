@@ -72,7 +72,7 @@ These sit in the same `0x57xxx` band but are string / memory routines:
 
 | Addr | Name | Role |
 |---|---|---|
-| `0x57184` | `PASCAL_STRLEN` | string length (uses the `0x80808080` zero-byte test) |
+| `0x57184` | `PASCAL_STRCMP` | string compare, 0 = equal (word-at-a-time `0x80808080` zero-byte test; was mis-named `PASCAL_STRLEN`) |
 | `0x5715C` | `PASCAL_STRCHR` | scan string for a byte |
 | `0x57144` | `PASCAL_STRCAT` | append (find NUL, copy) |
 | `0x571E4` | (bounded string copy — unnamed) | strncpy/strncat-style |
@@ -90,8 +90,12 @@ only reached through the named API above.
 ## Notes for reverse engineering
 
 - The `PASCAL_` prefix + stack ABI means **all numeric code in this firmware is Pascal-compiled**;
-  expect Pascal string descriptors and runtime helpers (STRLEN/STRCHR/etc.) elsewhere.
+  expect Pascal string descriptors and runtime helpers (STRCMP/STRCHR/etc.) elsewhere.
 - When reading any measurement / calibration / math routine, calls into `0x56Exx`–`0x57xxx`
   are float ops — substitute the names above to read the arithmetic.
 - The worker region `0x52000–0x55000` is the actual soft-float implementation; the `0x56Exx`
   entries are the callable API.
+- The deepest register-ABI primitives (mantissa unpack/normalize/align/round/pack) are now named
+  `PASCAL_SOFTFLOAT_*` (e.g. `0x54CDC` unpack-mantissa, `0x54D4A` normalize, `0x54D94` align-operands,
+  `0x552C8` round-double-mantissa). They are reached only through the named API above; roles are
+  inferred from callers.

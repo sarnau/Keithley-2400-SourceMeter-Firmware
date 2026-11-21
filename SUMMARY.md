@@ -170,19 +170,21 @@ Three boards: **digital board** (2400-140), **analog board** (2400-100), **displ
 
 | Item | Detail |
 |---|---|
-| **CPU** | Motorola **MC68332** @ **16.78 MHz** (part LSI-161, U3) |
+| **CPU** | Motorola **MC68332** @ **16.78 MHz** (part LSI-161, U3). No hardware FPU — firmware Pascal soft-float: [FLOAT.md](FLOAT.md). |
 | **ROM (firmware)** | Two **256K×8** EEPROMs **U15/U16** in parallel for the 16-bit bus. U15 = `2400-803-*` (ODD/MSB), U16 = `2400-804-*` (EVEN/LSB). Only socketed ICs; field-reflashable on ROM-checksum failure. |
 | **RAM** | Two **128K×8** RAMs **U12/U14** (LSI-162-70), parallel for 16-bit bus. **Battery-backed** — retains data buffer across power-down. |
-| **Config EEPROM** | **U17 = I²C EEPROM 24LC16B** (LSI-153). Stores **all calibration constants and system setups**. |
-| **GPIB** | **TMS9914A** "9914 GPIA" = **U13** (LSI-123). Transceivers U6 (75161), U20 (75160). |
-| **RS-232 / UART** | 68332 **QSM** module; line transceiver **U4 = MAX202**. |
-| **Internal serial** | 68332 **TPU** handles serial link to the front-panel display module + DAC interfacing. |
+| **Config EEPROM** | **U17 = I²C EEPROM 24LC16B** (LSI-153). Stores **all calibration constants and system setups**. Cal data model: [CALIBRATION.md](CALIBRATION.md). |
+| **GPIB** | **TMS9914A** "9914 GPIA" = **U13** (LSI-123). Transceivers U6 (75161), U20 (75160). Firmware driver: [GPIB.md](GPIB.md). |
+| **RS-232 / UART** | 68332 **QSM** module; line transceiver **U4 = MAX202**. Firmware RX/TX path: [RS232.md](RS232.md). |
+| **Internal serial** | 68332 **TPU** handles serial link to the front-panel display module + DAC interfacing. Front-panel display driver: [DISPLAY.md](DISPLAY.md). |
 | **Trigger / Digital I/O** | Trigger out via U23; Digital I/O via U7 (4-ch power driver 2549B). |
 | **Reset** | MPU RESET on U3 pin 68. |
 | **Battery** | 3 V Li-Mn cell **BA-44**, holder BH-34. ~10-yr life; replace if <2.5 V. |
 | **Clocks** | MPU 16.78 MHz; display 4 MHz (Y901). |
 
 ### Analog Board
+*Firmware A/D & source-control path: [MEASURE.md](MEASURE.md).*
+
 - Two 16-bit DACs (**AD7849BR**, U660/U661): **V DAC** and **I DAC**, each two ranges (10 V or 1 V), fed into summing node FB.
 - **Source-Voltage mode:** voltage loop dominates until I-compliance reached, then current loop overrides (and vice-versa for Source-Current). A **priority bit** selects which loop dominates.
 - **Sense resistors** in HI lead do current sensing (per range). 1 A range = 0.2 V full-scale; all other I ranges = 2 V full-scale.
@@ -232,7 +234,9 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
 18–28 °C, <70% RH, ≥1 hr warm-up. Reference: HP3458A DMM, Fluke 5450A resistance calibrator. Restore bench defaults first. **Default V-source protection is 40 V** — must raise to >200 V before testing the 200 V range. Example limits: 200 mV range 199.360–200.640 mV; 200 V range 199.936–200.064 V; 1 A range 0.99640–1.00360 A.
 
 ### Troubleshooting / Diagnostics
-- **Power-on self-test:** ROM checksum + RAM test. RAM fail → lockup. **ROM checksum fail → firmware-upgrade mode auto-enabled** (field reflash).
+*Firmware diagnostics & `:DIAG:KEIThley:*` commands: [DIAGNOSTIC.md](DIAGNOSTIC.md).*
+
+- **Power-on self-test:** ROM checksum + RAM test. RAM fail → lockup. **ROM checksum fail → firmware-upgrade mode auto-enabled** (field reflash). Full reset→boot→self-test→init→main-loop trace: [BOOT.md](BOOT.md).
 - **Front-panel tests (MENU → TEST → DISPLAY-TESTS):** KEYS, DISPLAY-PATTERNS (5 sub-tests), CHAR-SET.
 - **Key messages:** "No Comm Link" = front-panel processor lost comms with main MPU (reseat ROMs U15/U16). "Reading buffer data lost" / "DC calibration data lost" = dead/absent battery; after replacing, send `:syst:mem:init`.
 - **Digital test points (Table 4-3):** U3 pin 19 = digital common, pin 7 = +5 V, pin 68 = reset, pin 66 = 16.78 MHz; A0–A19 address, D0–D15 data. U4 pin 7/8 = RS-232 RX/TX. U13 pins 34–42 = IEEE-488 data, 26–31 command lines, 24 REN, 25 IFC. D_ADDATA/D_DATA/D_CLK/D_STB on U3 pins 43/44/45/47.
@@ -349,6 +353,7 @@ Appendix C provides a QBasic cal program (reference DMM HP3458A; 2400 GPIB addr 
 - GPIB default; RS-232 alternative (selectable only from front panel; stored NV; change → power-on reset). GPIB addr 24 default. General bus commands: REN, IFC, LLO, GTL, DCL, SDC, GET (=trigger), SPE/SPD.
 - Syntax: `[ ]` optional words, `< >` parameter types; `<b>` boolean, `<NRf>` flexible numeric, `<n>` numeric/DEF/MIN/MAX, `<NDN>` non-decimal `#B/#Q/#H`. Case-insensitive. Multiple commands `;`-separated; colon after `;` resets to root. PMT = LF / EOI / LF+EOI. Invalid command → rest of message ignored.
 - RS-232 defaults: 9600 8N1, XON/XOFF or none, straight-through DB-9 (TXD/RXD/GND; RTS-CTS tied). Break = ^C or ^X.
+- **Firmware transport paths:** [RS232.md](RS232.md) documents the 68332 QSM SCI serial receive/transmit implementation (vector-64 ISR, receive/output buffers, software XON/XOFF, terminator append); [GPIB.md](GPIB.md) covers the TMS9914A side. Both converge on the same SCPI parser — only the byte transport differs.
 
 ### Status Structure (Status Model)
 
@@ -383,6 +388,8 @@ Four register sets (Standard Event, Operation, Measurement, Questionable), each 
 - `:READ?` = `:INITiate` + `:FETCh?`. `:MEASure?` = `:CONFigure` + `:READ?`.
 
 ### SCPI Command Reference — Subsystem Map
+
+*Firmware parser/dispatch tables that decode these commands: [SCPI.md](SCPI.md).*
 
 - **CALCulate[1]** — math: `:MATH:NAME/:EXPRession/:CATalog?/:DELete`, `:STATe`, `:DATA?`, `:UNITs`. Built-ins POWER/OFFCOMPOHM/VOLTCOEF/VARALPHA/%DEV. Vectored math (`VOLT[3]`). Math errors +801…+821.
 - **CALCulate2** — limit tests + NULL/REL: `:LIMit1` (compliance), `:LIMit2/3/5–12` (`:UPPer`/`:LOWer`/`:SOURce2`/`:STATe`/`:FAIL?`), `:LIMit4` (contact check), `:CLIMits` (`:PASS/:FAIL:SMLocation`, `:BCONtrol IMM|END`, `:MODE GRAD|SORT`), `:CLEar:AUTO`, `:NULL`, `:FEED`, `:DATA?`.
