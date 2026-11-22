@@ -1,0 +1,9 @@
+# Ghidra per-user project state — transient UI/session churn, NOT symbol data.
+# (Window/tool layout, open-program state, selections, bookmarks, user journal.)
+# The program database lives under Keithley2400CFirmware.rep/idata/ and MUST stay tracked.
+Keithley2400CFirmware.rep/user/
+Keithley2400CFirmware.rep/projectState
+
+# Ghidra transient lock / scratch artifacts
+*.lock
+tmp*.ps
